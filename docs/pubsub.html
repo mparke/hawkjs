@@ -1,0 +1,103 @@
+<!DOCTYPE html>  <html> <head>   <title>pubsub.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="cache.html">                 cache.js               </a>                                           <a class="source" href="core.html">                 core.js               </a>                                           <a class="source" href="linkedlist.html">                 linkedlist.js               </a>                                           <a class="source" href="node.html">                 node.js               </a>                                           <a class="source" href="observable.html">                 observable.js               </a>                                           <a class="source" href="pubsub.html">                 pubsub.js               </a>                                           <a class="source" href="record.html">                 record.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               pubsub.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm">*   Publish and Subscribe Module</span>
+<span class="cm">*   Allows for subscribing to and publishing global events</span>
+<span class="cm">*   Will publish events in the order they are added as subscriptions</span>
+<span class="cm">*</span>
+<span class="cm">*/</span> 
+<span class="nx">Hawk</span><span class="p">.</span><span class="nx">def</span><span class="p">(</span><span class="s1">&#39;PubSub&#39;</span><span class="p">,</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Initialize subscriptions and aliases</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">subscriptions</span> <span class="o">=</span> <span class="p">{};</span>
+        </pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Subscribes to an event by name</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">sub</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">registerSubscription</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Subscribes multiple event definitions</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">subs</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">registerSubscriptions</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Publishes an event by name</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">pub</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">publishEvent</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>Registers an event mapping</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">mapping</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">registerEventMappings</span><span class="p">;</span>
+  <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Registers an event subscription</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nx">registerSubscription</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">scope</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">proxy</span> <span class="o">=</span> <span class="nx">Hawk</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span><span class="nx">callback</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">[</span><span class="nx">eventName</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">[</span><span class="nx">eventName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span> <span class="c1">//INVARIANT: the event does not exist, create room it before pushing</span>
+    <span class="p">}</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">[</span><span class="nx">eventName</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">proxy</span><span class="p">);</span>
+  <span class="p">},</span>
+
+  <span class="cm">/** </span>
+<span class="cm">  *   Parameter structure:</span>
+<span class="cm">  *   events: [</span>
+<span class="cm">  *       {</span>
+<span class="cm">  *           eventName: &#39;&#39;,</span>
+<span class="cm">  *           callback: function(){}</span>
+<span class="cm">  *       }</span>
+<span class="cm">  *   ],</span>
+<span class="cm">  *   scope: this</span>
+<span class="cm">  */</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>Registers multiple event subscriptions</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nx">registerSubscriptions</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">events</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">events</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+      <span class="nx">evt</span><span class="p">,</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">evt</span> <span class="o">=</span> <span class="nx">events</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="nx">eventName</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">eventName</span><span class="p">;</span>
+      <span class="nx">callback</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">callback</span><span class="p">;</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">registerSubscription</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">scope</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>Publish an event with a variable number of arguments</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nx">publishEvent</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">),</span>
+      <span class="nx">eventName</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">(),</span>
+      <span class="nx">subArr</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">[</span><span class="nx">eventName</span><span class="p">],</span>
+      <span class="nx">subCallback</span><span class="p">,</span>
+      <span class="nx">len</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">subArr</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">len</span> <span class="o">=</span> <span class="nx">subArr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">subCallback</span> <span class="o">=</span> <span class="nx">subArr</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="nx">subCallback</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span> <span class="c1">//args must be an array, but may or may not be empty!</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>Generate a callback to be used in publishing an event from an event mapping</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nx">genPublishCallback</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">reactions</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">reactions</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+        <span class="nx">reaction</span><span class="p">,</span>
+        <span class="nx">args</span><span class="p">;</span>
+
+
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">reaction</span> <span class="o">=</span> <span class="nx">reactions</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+        <span class="nx">args</span> <span class="o">=</span> <span class="nx">reaction</span><span class="p">.</span><span class="nx">useArgs</span> <span class="o">?</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)</span> <span class="o">:</span> <span class="p">[];</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>push the event name as the first param</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">args</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">reaction</span><span class="p">.</span><span class="nx">eventName</span><span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">publishEvent</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+
+  <span class="cm">/*</span>
+<span class="cm">  *   RegisterEventMappings takes a configuration object in the following form:</span>
+<span class="cm">  *   [</span>
+<span class="cm">  *       {</span>
+<span class="cm">  *           eventName:&quot;datachange&quot;,</span>
+<span class="cm">  *           reactions:[</span>
+<span class="cm">  *               { eventName:&quot;validateRecord&quot;, useArgs:true },</span>
+<span class="cm">  *               { eventName:&quot;postRecord&quot;,   useArgs:true }</span>
+<span class="cm">  *           ]</span>
+<span class="cm">  *       }</span>
+<span class="cm">  *   ]</span>
+<span class="cm">  */</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>Register an event mapping, typically specified as a .json config file</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nx">registerEventMappings</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">maps</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">maps</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+      <span class="nx">events</span> <span class="o">=</span> <span class="p">[],</span>
+      <span class="nx">eventName</span><span class="p">,</span>
+      <span class="nx">reactions</span><span class="p">,</span>
+      <span class="nx">reactionLen</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">eventName</span> <span class="o">=</span> <span class="nx">maps</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">eventName</span><span class="p">;</span>
+      <span class="nx">reactions</span> <span class="o">=</span> <span class="nx">maps</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">reactions</span><span class="p">;</span>
+
+      <span class="nx">events</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+        <span class="nx">eventName</span><span class="o">:</span> <span class="nx">eventName</span><span class="p">,</span>
+        <span class="nx">callback</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">genPublishCallback</span><span class="p">(</span><span class="nx">reactions</span><span class="p">)</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">registerSubscriptions</span><span class="p">(</span><span class="nx">events</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

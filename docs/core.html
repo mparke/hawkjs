@@ -1,0 +1,178 @@
+<!DOCTYPE html>  <html> <head>   <title>core.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="cache.html">                 cache.js               </a>                                           <a class="source" href="core.html">                 core.js               </a>                                           <a class="source" href="linkedlist.html">                 linkedlist.js               </a>                                           <a class="source" href="node.html">                 node.js               </a>                                           <a class="source" href="observable.html">                 observable.js               </a>                                           <a class="source" href="pubsub.html">                 pubsub.js               </a>                                           <a class="source" href="record.html">                 record.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               core.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">Hawk</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>An exception class to be instantiated when a requested Hawk class name does not exist</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="kd">function</span> <span class="nx">DoesNotExistException</span><span class="p">(</span><span class="nx">className</span><span class="p">){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">className</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;definition does not exist.&#39;</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+    <span class="p">};</span>
+  <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>An exception class to be instantiated when a value is Not of type number</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="kd">function</span> <span class="nx">NumberTypeError</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;must be a number.&#39;</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+    <span class="p">};</span>
+  <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>An exception class to be instantiated when a value is Not of type object</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="kd">function</span> <span class="nx">ObjectTypeError</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;must be an object.&#39;</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+    <span class="p">};</span>
+  <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>An exception class to be instantiated when a provided index is out of bounds</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="kd">function</span> <span class="nx">IndexOutOfBoundsException</span><span class="p">(</span><span class="nx">index</span><span class="p">){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">index</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;is out of bounds.&#39;</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+    <span class="p">};</span>
+  <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>Internal Hawk Object</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">cKm</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">DoesNotExistException</span><span class="o">:</span> <span class="nx">DoesNotExistException</span><span class="p">,</span>
+    <span class="nx">NumberTypeError</span><span class="o">:</span> <span class="nx">NumberTypeError</span><span class="p">,</span>
+    <span class="nx">ObjectTypeError</span><span class="o">:</span> <span class="nx">ObjectTypeError</span><span class="p">,</span>
+    <span class="nx">IndexOutOfBoundsException</span><span class="o">:</span> <span class="nx">IndexOutOfBoundsException</span><span class="p">,</span>
+
+    <span class="nx">classMap</span><span class="o">:</span> <span class="p">{},</span>
+    <span class="nx">mixinMap</span><span class="o">:</span> <span class="p">{},</span>
+
+    <span class="nx">proxy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">scope</span><span class="p">){</span>
+      <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">args</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+        <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+      <span class="p">};</span>
+    <span class="p">},</span>
+
+    <span class="nx">extend</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">destination</span><span class="p">,</span> <span class="nx">source</span><span class="p">){</span>
+      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">source</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">source</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">index</span><span class="p">)){</span>
+          <span class="nx">destination</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="nx">source</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Get a class definition object by name, @param {string}</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">getDef</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">className</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">def</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">classMap</span><span class="p">[</span><span class="nx">className</span><span class="p">];</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">def</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">def</span><span class="p">;</span>
+      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">DoesNotExistException</span><span class="p">(</span><span class="nx">className</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>Get multiple class definitions by name, @param {string[]}</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">getDefs</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">classNames</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">classDefs</span> <span class="o">=</span> <span class="p">[],</span>
+      <span class="nx">len</span> <span class="o">=</span> <span class="nx">classNames</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+      <span class="nx">className</span><span class="p">;</span>
+
+      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nx">className</span> <span class="o">=</span> <span class="nx">classNames</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="nx">def</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getDef</span><span class="p">(</span><span class="nx">className</span><span class="p">);</span>
+
+        <span class="nx">classDefs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">def</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nx">classDefs</span><span class="p">;</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>Get a mixin class definition</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">getMixinDef</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">className</span><span class="p">){</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">mixinMap</span><span class="p">[</span><span class="nx">className</span><span class="p">];</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>Mix a class definition with the specified classes, @param {object}, @param {string[]}</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">mix</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">classMixinDef</span><span class="p">,</span> <span class="nx">mixinNames</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">constructor</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){},</span>
+        <span class="nx">mixinName</span><span class="p">,</span>
+        <span class="nx">mixinDef</span><span class="p">,</span>
+        <span class="nx">len</span><span class="p">;</span>
+
+      <span class="nx">classMixinDef</span><span class="p">.</span><span class="nx">sprout</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">classMixinDef</span><span class="p">.</span><span class="nx">config</span><span class="p">);</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="nx">mixinNames</span><span class="p">){</span>
+        <span class="nx">len</span> <span class="o">=</span> <span class="nx">mixinNames</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="nx">mixinName</span> <span class="o">=</span> <span class="nx">mixinNames</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+          <span class="nx">mixinDef</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getMixinDef</span><span class="p">(</span><span class="nx">mixinName</span><span class="p">);</span>
+
+          <span class="nx">mixinDef</span><span class="p">.</span><span class="nx">sprout</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">mixinDef</span><span class="p">.</span><span class="nx">config</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nx">constructor</span><span class="p">;</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>Create a constructor that will apply an object of properties to this</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">createMixinConstructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">config</span><span class="p">){</span>
+        <span class="nx">me</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">config</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+      <span class="p">};</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>Create a mixin definition and add it to the mixin map</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">createMixin</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">className</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">initFn</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">Sprout</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createMixinConstructor</span><span class="p">();</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">mixinMap</span><span class="p">[</span><span class="nx">className</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">sprout</span><span class="o">:</span> <span class="nx">Sprout</span><span class="p">,</span>
+        <span class="nx">initFn</span><span class="o">:</span> <span class="nx">initFn</span><span class="p">,</span>
+        <span class="nx">config</span><span class="o">:</span> <span class="nx">config</span>
+      <span class="p">};</span>
+
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">mixinMap</span><span class="p">[</span><span class="nx">className</span><span class="p">];</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>Get a queue of init functions from the provided mixin names</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">getInitQueue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">mixinNames</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">initQueue</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nx">mixinDef</span><span class="p">,</span>
+        <span class="nx">initFn</span><span class="p">,</span>
+        <span class="nx">len</span><span class="p">;</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="nx">mixinNames</span><span class="p">){</span>
+        <span class="nx">len</span> <span class="o">=</span> <span class="nx">mixinNames</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+          <span class="nx">mixinDef</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getMixinDef</span><span class="p">(</span><span class="nx">mixinNames</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+          <span class="nx">initFn</span> <span class="o">=</span> <span class="nx">mixinDef</span><span class="p">.</span><span class="nx">initFn</span><span class="p">;</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="nx">initFn</span><span class="p">){</span>
+            <span class="nx">initQueue</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">initFn</span><span class="p">);</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nx">initQueue</span><span class="p">;</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>Add a class definition to the class map</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">addClassDef</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">className</span><span class="p">,</span> <span class="nx">sprout</span><span class="p">,</span> <span class="nx">initQueue</span><span class="p">){</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">classMap</span><span class="p">[</span><span class="nx">className</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">sprout</span><span class="o">:</span> <span class="nx">sprout</span><span class="p">,</span>
+        <span class="nx">initQueue</span><span class="o">:</span> <span class="nx">initQueue</span>
+      <span class="p">};</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <p>Execute an initialization queue</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">executeInitQueue</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">inBloom</span><span class="p">,</span> <span class="nx">initQueue</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">initQueue</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+        <span class="nx">i</span> <span class="o">=</span> <span class="nx">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+
+      <span class="k">while</span><span class="p">(</span><span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="nx">initFn</span> <span class="o">=</span> <span class="nx">initQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span> <span class="c1">//we unshifted into the front of the queue, so we want to pop to get mixin&#39;s in the right order</span>
+        <span class="nx">initFn</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">inBloom</span><span class="p">);</span>
+
+        <span class="o">--</span><span class="nx">i</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p>Define a new class, providing a configuration object</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">def</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">className</span><span class="p">,</span> <span class="nx">config</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">initFn</span> <span class="o">=</span> <span class="nx">config</span><span class="p">[</span><span class="s1">&#39;init&#39;</span><span class="p">],</span>
+        <span class="nx">mixinNames</span> <span class="o">=</span> <span class="nx">config</span><span class="p">[</span><span class="s1">&#39;mixins&#39;</span><span class="p">],</span>
+        <span class="nx">classMixinDef</span><span class="p">,</span>
+        <span class="nx">mixedConstructor</span><span class="p">,</span>
+        <span class="nx">initQueue</span><span class="p">;</span>
+
+      <span class="k">delete</span> <span class="nx">config</span><span class="p">[</span><span class="s1">&#39;init&#39;</span><span class="p">];</span>
+
+      <span class="nx">initQueue</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInitQueue</span><span class="p">(</span><span class="nx">mixinNames</span><span class="p">);</span> <span class="c1">//build init queue based on mixins</span>
+      
+      <span class="k">if</span><span class="p">(</span><span class="nx">initFn</span><span class="p">){</span>
+        <span class="nx">initQueue</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">initFn</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="nx">classMixinDef</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createMixin</span><span class="p">(</span><span class="nx">className</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">initFn</span><span class="p">);</span> <span class="c1">//create this class as a mixin definition</span>
+      <span class="nx">mixedConstructor</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">mix</span><span class="p">(</span><span class="nx">classMixinDef</span><span class="p">,</span> <span class="nx">mixinNames</span><span class="p">);</span> <span class="c1">//apply specified mixins to this class  mixin</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">addClassDef</span><span class="p">(</span><span class="nx">className</span><span class="p">,</span> <span class="nx">mixedConstructor</span><span class="p">,</span> <span class="nx">initQueue</span><span class="p">);</span> <span class="c1">//define the mixed constructor as a class definition</span>
+    <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-17">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-17">&#182;</a>               </div>               <p>Generate a class instance</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">gen</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">className</span><span class="p">,</span> <span class="nx">overrideConfig</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">classDef</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getDef</span><span class="p">(</span><span class="nx">className</span><span class="p">),</span>
+        <span class="nx">sprout</span> <span class="o">=</span> <span class="nx">classDef</span><span class="p">.</span><span class="nx">sprout</span><span class="p">,</span>
+        <span class="nx">initQueue</span> <span class="o">=</span> <span class="nx">classDef</span><span class="p">.</span><span class="nx">initQueue</span><span class="p">,</span>
+        <span class="nx">inBloom</span><span class="p">;</span> <span class="c1">//result of Object.create, a mid level class instance, before initializations have been applied</span>
+
+      <span class="nx">overrideConfig</span> <span class="o">=</span> <span class="nx">overrideConfig</span> <span class="o">||</span> <span class="p">{};</span>
+
+      <span class="nx">inBloom</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">sprout</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">inBloom</span><span class="p">,</span> <span class="nx">overrideConfig</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">executeInitQueue</span><span class="p">(</span><span class="nx">inBloom</span><span class="p">,</span> <span class="nx">initQueue</span><span class="p">);</span>
+
+      <span class="k">return</span> <span class="nx">inBloom</span><span class="p">;</span> <span class="c1">//in bloom is now full bloom! </span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="nx">cKm</span><span class="p">;</span>
+<span class="p">})();</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
