@@ -1,5 +1,5 @@
 ### Hawk.js
-(deprecated) An experimental micro framework
+(deprecated 2012) An experimental micro framework
 
 You're Here All Week, have Hawk on your side.
 
