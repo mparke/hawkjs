@@ -1,4 +1,6 @@
 ### Hawk.js
+(deprecated) An experimental micro framework
+
 You're Here All Week, have Hawk on your side.
 
 Hawk.js provides flexibility and structure to web apps through a class system based on mixins,  
